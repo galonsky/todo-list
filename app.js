@@ -32,4 +32,12 @@ app.post('/', function(req, httpResponse) {
     });
 });
 
+app.get('/delete/:id/:rev', function(req, httpResponse) {
+    var id = req.params.id;
+    var rev = req.params.rev;
+    data.delete(id, rev, function(err, res) {
+        httpResponse.redirect('/');
+    });
+});
+
 app.listen(4000);
