@@ -1,10 +1,24 @@
 var cradle = require('cradle');
 
 var db = new(cradle.Connection)().database('list');
+db.create();
+
+db.save('_design/list', {
+    all: {
+        map: function(doc) {
+            if(doc.text)
+            {
+                emit(doc.timestamp, doc);
+            }
+        }
+    }
+});
 
 module.exports.insert = function(text, callback) {
+    var time = new Date().getTime();
     db.save({
-        text: text
+        text: text,
+        timestamp: time
     }, callback);
 };
 
