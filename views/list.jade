@@ -1,0 +1,5 @@
+h1 Todo List
+#items!= partial('item', {collection: items})
+form(action='/', method='POST')
+  input(type='text', id='todo_text', name='todo[text]')
+  input(type='submit')
