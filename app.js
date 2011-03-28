@@ -1,3 +1,20 @@
+function dueString(timestamp){
+    var now = new Date().getTime();
+    var days = Math.ceil((timestamp - now) / (1000*60*60*24));
+    var ret;
+    if(days == 0){
+        ret = "due today";
+    }
+    else if(days > 0){
+        ret = "due in " + days + " days";
+    }
+    else
+    {
+        ret = "overdue by " + Math.abs(days) + " days";
+    }
+    return ret;
+}
+
 var express = require('express');
 
 var app = express.createServer();
@@ -19,9 +36,7 @@ app.get('/', function(req, httpResponse){
         for(item in res)
         {
             var due = res[item].value.duetimestamp;
-            var now = new Date().getTime();
-            var days = Math.ceil((due - now) / (1000*60*60*24));
-            res[item].days = days;
+            res[item].due = dueString(due);
         }
         //console.log(res);
         httpResponse.render('list', {
