@@ -1,18 +1,18 @@
 function dueString(timestamp){
     var now = new Date().getTime();
     var days = Math.ceil((timestamp - now) / (1000*60*60*24));
-    var ret;
+    var ret = "(";
     if(days == 0){
-        ret = "due today";
+        ret += "due today";
     }
     else if(days > 0){
-        ret = "due in " + days + " days";
+        ret += "due in " + days + " days";
     }
     else
     {
-        ret = "overdue by " + Math.abs(days) + " days";
+        ret += "overdue by " + Math.abs(days) + " days";
     }
-    return ret;
+    return ret + ")";
 }
 
 var express = require('express');
@@ -36,7 +36,10 @@ app.get('/', function(req, httpResponse){
         for(item in res)
         {
             var due = res[item].value.duetimestamp;
-            res[item].due = dueString(due);
+            if(due == -1)
+                res[item].due = "";
+            else
+                res[item].due = dueString(due);
         }
         //console.log(res);
         httpResponse.render('list', {
@@ -50,7 +53,14 @@ app.get('/', function(req, httpResponse){
 app.post('/', function(req, httpResponse) {
     var text = req.body.todo.text;
     var due = req.body.todo.due;
-    data.insert(text, due, function(err, res) {
+    var stamp = Date.parse(due);
+    var dueDate = null;
+    
+    if(isNaN(stamp) == false)
+    {
+        dueDate = new Date(stamp);
+    }
+    data.insert(text, dueDate, function(err, res) {
         httpResponse.redirect('/');
     });
 });

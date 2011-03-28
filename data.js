@@ -16,11 +16,15 @@ db.save('_design/list', {
 
 module.exports.insert = function(text, due, callback) {
     var time = new Date().getTime();
-    var duetime = new Date(due).getTime();
+    var duestamp = -1;
+    if(due != null)
+    {
+        duestamp = due.getTime();
+    }
     db.save({
         text: text,
         timestamp: time,
-        duetimestamp: duetime
+        duetimestamp: duestamp
     }, callback);
 };
 
