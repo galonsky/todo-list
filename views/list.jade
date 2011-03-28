@@ -4,8 +4,7 @@ hr
 form(action='/', method='POST')
   p
     label(for='todo_text') Todo to add:
-    input(type='text', id='todo_text', name='todo[text]')
-  p
-    label(for='todo_due') Due Date:
-    input(type='text', id='todo_due', name='todo[due]')
-  input(type='submit')
+    input#todo_text(type='text', name='todo[text]')
+    label(for='todo_due') Due Date (optional):
+    input#todo_due(type='text', name='todo[due]')
+    input(type='submit', value='add')

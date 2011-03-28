@@ -12,3 +12,6 @@ div.due {
     font-size: 12px;
     color: #777777;
 }
+#todo_text {
+    margin-right: 10px;
+}
