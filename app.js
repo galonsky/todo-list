@@ -20,7 +20,7 @@ app.get('/', function(req, httpResponse){
         {
             var due = res[item].value.duetimestamp;
             var now = new Date().getTime();
-            var days = Math.floor((due - now) / (1000*60*60*24)) + 1;
+            var days = Math.ceil((due - now) / (1000*60*60*24));
             res[item].days = days;
         }
         //console.log(res);
