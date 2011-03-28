@@ -6,9 +6,12 @@ db.create();
 db.save('_design/list', {
     all: {
         map: function(doc) {
-            if(doc.text)
+            if (doc.text)
             {
-                emit(doc.timestamp, doc);
+                var first = 0;
+                if (doc.duetimestamp == -1)
+                first = 1;
+                emit([first, doc.duetimestamp], doc);
             }
         }
     }
