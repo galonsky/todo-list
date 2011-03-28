@@ -1,0 +1,7 @@
+A simple todo list app.
+
+Requires:
+
+*	Express
+*	Cradle
+*	Jade
