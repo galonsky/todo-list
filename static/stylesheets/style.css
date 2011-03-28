@@ -8,3 +8,7 @@ body{
 	border: 1px solid #ddd;
 	padding: 1em;
 }
+div.due {
+    font-size: 12px;
+    color: #777777;
+}
