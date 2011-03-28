@@ -14,11 +14,13 @@ db.save('_design/list', {
     }
 });
 
-module.exports.insert = function(text, callback) {
+module.exports.insert = function(text, due, callback) {
     var time = new Date().getTime();
+    var duetime = new Date(due).getTime();
     db.save({
         text: text,
-        timestamp: time
+        timestamp: time,
+        duetimestamp: duetime
     }, callback);
 };
 

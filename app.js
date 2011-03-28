@@ -16,7 +16,14 @@ var data = require('./data');
 
 app.get('/', function(req, httpResponse){
     data.list(function(err, res) {
-        console.log(res);
+        for(item in res)
+        {
+            var due = res[item].value.duetimestamp;
+            var now = new Date().getTime();
+            var days = Math.floor((due - now) / (1000*60*60*24)) + 1;
+            res[item].days = days;
+        }
+        //console.log(res);
         httpResponse.render('list', {
             locals: {items: res}
         });
@@ -27,7 +34,8 @@ app.get('/', function(req, httpResponse){
 
 app.post('/', function(req, httpResponse) {
     var text = req.body.todo.text;
-    data.insert(text, function(err, res) {
+    var due = req.body.todo.due;
+    data.insert(text, due, function(err, res) {
         httpResponse.redirect('/');
     });
 });

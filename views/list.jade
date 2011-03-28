@@ -1,5 +1,11 @@
 h1 Todo List
 #items!= partial('item', {collection: items})
+hr
 form(action='/', method='POST')
-  input(type='text', id='todo_text', name='todo[text]')
+  p
+    label(for='todo_text') Todo to add:
+    input(type='text', id='todo_text', name='todo[text]')
+  p
+    label(for='todo_due') Due Date:
+    input(type='text', id='todo_due', name='todo[due]')
   input(type='submit')
